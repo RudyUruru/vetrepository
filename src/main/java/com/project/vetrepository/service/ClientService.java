@@ -1,0 +1,47 @@
+package com.project.vetrepository.service;
+
+
+import com.project.vetrepository.dto.ClientDTO;
+import com.project.vetrepository.dto.VisitDTO;
+import com.project.vetrepository.repository.ClientRepo;
+import com.project.vetrepository.repository.VisitRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+public class ClientService {
+
+    @Autowired
+    ClientRepo clientRepo;
+
+    @Autowired
+    VisitRepo visitRepo;
+
+    /*public AnalysisEntity getAnalysis(Long id) {
+        return new AnalysisEntity();
+    }
+
+    public ConfigurationEntity getClinicInformation() {
+        return new ConfigurationEntity();
+    }*/
+
+    public ClientDTO getClientInfo(Long id) {
+        return clientRepo.findById(id).get();
+    }
+
+    public List<VisitDTO> getVisits(Long id, Long kind_id, Long breed_id, LocalDateTime date1, LocalDateTime date2, Integer maxCount) {
+        List<VisitDTO> list;
+        if (maxCount == null && breed_id == null)
+            list = visitRepo.findVisitsByClientId(id, kind_id, date1, date2);
+        else if (maxCount == null)
+            list = visitRepo.findVisitsWithBreed(id, kind_id, breed_id, date1, date2);
+        else if (breed_id == null)
+            list = visitRepo.findVisitsLimited(id, kind_id, date1, date2, maxCount);
+        else
+            list = visitRepo.findVisitsLimitedWithBreed(id, kind_id, breed_id, date1, date2, maxCount);
+        return list;
+    }
+}
