@@ -1,7 +1,9 @@
 package com.project.vetrepository.controller;
 
 import com.project.vetrepository.UserInfo;
+import com.project.vetrepository.dto.ClientDTO;
 import com.project.vetrepository.dto.PetLightDTO;
+import com.project.vetrepository.repository.ClientRepo;
 import com.project.vetrepository.service.PetService;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,16 @@ import java.util.List;
 public class PetController {
     @Autowired
     PetService petService;
+
+    @Autowired
+    ClientRepo clientRepo;
     //посмотреть
     @GetMapping("/pets")
-    public ResponseEntity<List<PetLightDTO>> getPetsFiltered(/*@RequestParam Long id,*/
+    public ResponseEntity<List<PetLightDTO>> getPetsFiltered(@RequestParam String email,
                                                                 @RequestParam @Nullable Long kind_id,
                                                                 @RequestParam @Nullable Long breed_id,
                                                                 @RequestParam @Nullable Integer max_count) {
-        return ResponseEntity.ok(petService.getPets(UserInfo.ID, kind_id, breed_id, max_count));
+        ClientDTO client = clientRepo.findByEmail(email);
+        return ResponseEntity.ok(petService.getPets(client.getClient_id(), kind_id, breed_id, max_count));
     }
 }

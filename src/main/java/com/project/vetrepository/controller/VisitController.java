@@ -17,7 +17,7 @@ public class VisitController {
     VisitService visitService;
 
     @GetMapping("/visit")
-    public ResponseEntity<VisitDTO> getVisit(/*@RequestParam Long visit_id*/) {
+    public ResponseEntity<VisitDTO> getVisit(@RequestParam Long visit_id) {
         return ResponseEntity.ok(visitService.getVisit(UserInfo.VISIT_ID));
     }
 }
