@@ -35,7 +35,11 @@ public class AppointmentDTO {
     private LocalDateTime date;
 
     @Column(name = "value")
-    private String value;
+    private String description;
+
+    @Enumerated
+    @Column(name = "type")
+    private AppointmentType type;
 
     @Column(name = "doc")
     private String doctor_name;
