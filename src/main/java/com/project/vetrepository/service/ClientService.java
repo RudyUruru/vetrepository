@@ -2,6 +2,7 @@ package com.project.vetrepository.service;
 
 
 import com.project.vetrepository.dto.ClientDTO;
+import com.project.vetrepository.dto.ClientLightDTO;
 import com.project.vetrepository.dto.VisitDTO;
 import com.project.vetrepository.repository.ClientRepo;
 import com.project.vetrepository.repository.VisitRepo;
@@ -28,8 +29,8 @@ public class ClientService {
         return new ConfigurationEntity();
     }*/
 
-    public ClientDTO getClientInfo(Long id) {
-        return clientRepo.findById(id).get();
+    public ClientLightDTO getClientInfo(Long id) {
+        return clientRepo.findByClientId(id);
     }
 
     public List<VisitDTO> getVisits(Long id, Long kind_id, Long breed_id, LocalDateTime date1, LocalDateTime date2, Integer maxCount) {

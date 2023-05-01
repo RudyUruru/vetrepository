@@ -4,6 +4,7 @@ package com.project.vetrepository.controller;
 import com.project.vetrepository.UserInfo;
 import com.project.vetrepository.dto.AppointmentDTO;
 import com.project.vetrepository.dto.ClientDTO;
+import com.project.vetrepository.dto.ClientLightDTO;
 import com.project.vetrepository.dto.VisitDTO;
 import com.project.vetrepository.repository.ClientRepo;
 import com.project.vetrepository.service.AppointmentService;
@@ -34,14 +35,14 @@ public class ClientController {
 
     @GetMapping("/appointments")
     public ResponseEntity<List<AppointmentDTO>> getAppointments(@RequestParam String email, @Nullable @RequestParam Integer max_count) {
-        ClientDTO client = clientRepo.findByEmail(email);
+        ClientLightDTO client = clientRepo.findByEmail(email);
         return ResponseEntity.ok(appointmentService.getAppointments(client.getClient_id(), max_count));
     }
 
 
     @GetMapping("/client_info")
-    public ResponseEntity<ClientDTO> getClientFullName(@RequestParam String email) {
-        ClientDTO client = clientRepo.findByEmail(email);
+    public ResponseEntity<ClientLightDTO> getClientFullName(@RequestParam String email) {
+        ClientLightDTO client = clientRepo.findByEmail(email);
         return ResponseEntity.ok(clientService.getClientInfo(client.getClient_id()));
     }
 
@@ -53,7 +54,7 @@ public class ClientController {
                                                     @RequestParam @Nullable Long breed_id,
                                                     @RequestParam @Nullable LocalDateTime date1, @RequestParam @Nullable LocalDateTime date2,
                                                     @RequestParam @Nullable Integer max_count) {
-        ClientDTO client = clientRepo.findByEmail(email);
+        ClientLightDTO client = clientRepo.findByEmail(email);
         List<VisitDTO> visits = clientService.getVisits(client.getClient_id(), kind_id, breed_id, date1, date2, max_count);
         return ResponseEntity.ok(visits);
     }
