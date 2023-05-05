@@ -9,13 +9,11 @@ import com.project.vetrepository.service.PetService;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
 public class PetController {
@@ -33,4 +31,12 @@ public class PetController {
         ClientLightDTO client = clientRepo.findByEmail(email);
         return ResponseEntity.ok(petService.getPets(client.getClient_id(), kind_id, breed_id, max_count));
     }
+
+    @GetMapping("/pets_name")
+    public ResponseEntity<List<PetLightDTO>> getPetsByName(@RequestParam String email,
+                                                           @RequestParam String name) {
+        ClientLightDTO client = clientRepo.findByEmail(email);
+        return ResponseEntity.ok(petService.getPetsByName(client.getClient_id(), name));
+    }
+
 }

@@ -26,7 +26,10 @@ public class PetService {
             list = petRepo.findPetsLimited(id, kind_id, maxCount);
         else
             list = petRepo.findPetsLimitedWithBreed(id, kind_id, breed_id, maxCount);
-
         return list;
+    }
+
+    public List<PetLightDTO> getPetsByName(Long id, String name) {
+        return petRepo.findByName(id, name);
     }
 }
