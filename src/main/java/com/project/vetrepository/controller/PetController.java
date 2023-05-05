@@ -27,16 +27,17 @@ public class PetController {
     public ResponseEntity<List<PetLightDTO>> getPetsFiltered(@RequestParam String email,
                                                                 @RequestParam @Nullable Long kind_id,
                                                                 @RequestParam @Nullable Long breed_id,
+                                                                @RequestParam @Nullable String name,
                                                                 @RequestParam @Nullable Integer max_count) {
         ClientLightDTO client = clientRepo.findByEmail(email);
-        return ResponseEntity.ok(petService.getPets(client.getClient_id(), kind_id, breed_id, max_count));
+        return ResponseEntity.ok(petService.getPets(client.getClient_id(), kind_id, breed_id, name, max_count));
     }
 
-    @GetMapping("/pets_name")
+    /*@GetMapping("/pets_name")
     public ResponseEntity<List<PetLightDTO>> getPetsByName(@RequestParam String email,
                                                            @RequestParam String name) {
         ClientLightDTO client = clientRepo.findByEmail(email);
         return ResponseEntity.ok(petService.getPetsByName(client.getClient_id(), name));
-    }
+    }*/
 
 }

@@ -17,16 +17,17 @@ public class FiltersService {
     @Autowired
     PetRepo petRepo;
 
-    public Set<BreedDataDTO> getBreeds(Long id) {
-        List<PetLightDTO> pets = petRepo.findAllHaveBreed(id);
+    public Set<BreedDataDTO> getBreeds(Long id, Long kindId) {
+        List<PetLightDTO> pets;
+        pets = petRepo.findAllHaveBreed(id, kindId);
         Set<BreedDataDTO> filter = new HashSet<>();
         for (PetLightDTO p : pets) {
             filter.add(p.getBreed());
         }
         return filter;
     }
-    public Set<TreesDataDTO> getKinds(Long id) {
-        List<PetLightDTO> pets = petRepo.findPets(id, null);
+    public Set<TreesDataDTO> getKinds(Long id, Long breedId) {
+        List<PetLightDTO> pets = petRepo.findPetsFullFiltered(id, null, breedId, null, Integer.MAX_VALUE);
         Set<TreesDataDTO> filter = new HashSet<>();
         for (PetLightDTO p : pets) {
             filter.add(p.getKind());
