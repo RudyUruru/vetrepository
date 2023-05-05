@@ -43,9 +43,8 @@ public class VisitDTO {
     @Column (name = "recommend")
     private String recommendation;
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    private VisitType type;
+    @Column(name = "type_id")
+    private Integer type;
 
     @Column(name = "first_visit_id")
     private Long first_visit_id;
