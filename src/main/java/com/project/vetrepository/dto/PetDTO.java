@@ -44,6 +44,9 @@ public class PetDTO {
     @JoinColumn(name = "color")
     private DictionariesDataDTO color;
 
+    @Column(name = "chip")
+    private String chipNumber;
+
 
     @JsonIgnoreProperties({"pets", "appointments", "visits"})
     @ManyToOne

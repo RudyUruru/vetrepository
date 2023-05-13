@@ -30,6 +30,9 @@ public class PetLightDTO {
     @JoinColumn(name = "kind")
     private TreesDataDTO kind;
 
+    @Column(name = "chip")
+    private String chipNumber;
+
     @ManyToOne
     @JoinColumn(name = "sex")
     private DictionariesDataDTO sex;

@@ -33,11 +33,4 @@ public class PetController {
         return ResponseEntity.ok(petService.getPets(client.getClient_id(), kind_id, breed_id, name, max_count));
     }
 
-    /*@GetMapping("/pets_name")
-    public ResponseEntity<List<PetLightDTO>> getPetsByName(@RequestParam String email,
-                                                           @RequestParam String name) {
-        ClientLightDTO client = clientRepo.findByEmail(email);
-        return ResponseEntity.ok(petService.getPetsByName(client.getClient_id(), name));
-    }*/
-
 }
