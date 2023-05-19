@@ -24,7 +24,7 @@ public class VisitDTO {
     @JsonIgnoreProperties({"owner", "visits", "appointments", "diagnoses"})
     @ManyToOne
     @JoinColumn (name = "pet_id")
-    private PetDTO pet;
+    private PetLightDTO pet;
 
     @JsonIgnoreProperties({"pets", "appointments", "visits"})
     @ManyToOne
@@ -53,4 +53,21 @@ public class VisitDTO {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "visit")
     private List<XPetsDiagsDTO> diagnoses;
 
+    @Column(name = "weight")
+    private String weight;
+
+    @Column(name = "temperature")
+    private String temperature;
+
+    @Column(name = "heart_beat")
+    private String heartBeat;
+
+    @Column(name = "breath_beat")
+    private String breathBeat;
+
+    @Column(name = "vaccine_id")
+    private Long vaccineId;
+
+    @Column(name = "next_vaccination")
+    private LocalDateTime nextVaccination;
 }
