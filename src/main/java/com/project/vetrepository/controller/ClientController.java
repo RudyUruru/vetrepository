@@ -32,9 +32,11 @@ public class ClientController {
     AppointmentService appointmentService;
 
     @GetMapping("/appointments")
-    public ResponseEntity<List<AppointmentDTO>> getAppointments(@RequestParam String email, @Nullable @RequestParam Integer max_count) {
+    public ResponseEntity<List<AppointmentDTO>> getAppointments(@RequestParam String email,
+                                                                @RequestParam @Nullable Long petId,
+                                                                @RequestParam @Nullable Integer max_count) {
         ClientLightDTO client = clientRepo.findByEmail(email);
-        return ResponseEntity.ok(appointmentService.getAppointments(client.getClient_id(), max_count));
+        return ResponseEntity.ok(appointmentService.getAppointments(client.getClient_id(), petId, max_count));
     }
 
 
@@ -45,15 +47,15 @@ public class ClientController {
     }
 
 
-    //Можно добавить в фильтры еще одну дату и искать между ними
     @GetMapping("/visits")
     public ResponseEntity<List<VisitDTO>> getVisits(@RequestParam String email,
+                                                    @RequestParam @Nullable Long petId,
                                                     @RequestParam @Nullable Long kind_id,
                                                     @RequestParam @Nullable Long breed_id,
                                                     @RequestParam @Nullable LocalDateTime date1, @RequestParam @Nullable LocalDateTime date2,
                                                     @RequestParam @Nullable Integer max_count) {
         ClientLightDTO client = clientRepo.findByEmail(email);
-        List<VisitDTO> visits = clientService.getVisits(client.getClient_id(), kind_id, breed_id, date1, date2, max_count);
+        List<VisitDTO> visits = clientService.getVisits(client.getClient_id(), petId, kind_id, breed_id, date1, date2, max_count);
         return ResponseEntity.ok(visits);
     }
 }

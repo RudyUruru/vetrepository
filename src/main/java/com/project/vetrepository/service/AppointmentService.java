@@ -12,12 +12,13 @@ import java.util.List;
 public class AppointmentService {
     @Autowired
     AppointmentRepo appointmentRepo;
-    public List<AppointmentDTO> getAppointments(Long id, Integer maxCount) {
+    public List<AppointmentDTO> getAppointments(Long id, Long petId, Integer maxCount) {
         List<AppointmentDTO> list;
-        if (maxCount != null)
-            list = appointmentRepo.getAppointmentsLimited(id, LocalDateTime.now(), maxCount);
-        else
-            list = appointmentRepo.getAppointments(id, LocalDateTime.now());
+        if (maxCount == null)
+            maxCount = Integer.MAX_VALUE;
+        list = appointmentRepo.getAppointmentsLimited(id, petId, LocalDateTime.now(), maxCount);
+
+
         return list;
     }
 }

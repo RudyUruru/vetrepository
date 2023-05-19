@@ -36,12 +36,14 @@ public interface VisitRepo extends PagingAndSortingRepository<VisitDTO, Long> {
 
 
     @Query("SELECT v FROM VisitDTO v WHERE v.client.client_id=:clientId" +
+            " AND (:petId IS NULL OR v.pet.pet_id=:petId)" +
             " AND (:kind IS NULL OR v.pet.kind.id=:kind)" +
             " AND (:breed IS NULL OR v.pet.breed.id=:breed)" +
             " AND (:date1 IS NULL OR v.date>=:date1)" +
             " AND (:date2 IS NULL OR v.date<=:date2)" +
             " ORDER BY v.date desc LIMIT :maxCount")
     List<VisitDTO> findVisitsLimitedWithBreed(@Param("clientId") Long clientId,
+                                              @Nullable @Param("petId") Long petId,
                                               @Nullable @Param("kind") Long kind,
                                               @Nullable @Param("breed") Long breed,
                                               @Nullable @Param("date1") LocalDateTime date1,
