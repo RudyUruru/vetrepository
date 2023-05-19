@@ -1,5 +1,6 @@
 package com.project.vetrepository.repository;
 
+import com.project.vetrepository.dto.PetDTO;
 import com.project.vetrepository.dto.PetLightDTO;
 import jakarta.annotation.Nullable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PetRepo extends JpaRepository<PetLightDTO, Long> {
+public interface PetRepo extends JpaRepository<PetDTO, Long> {
 
 
 
@@ -61,4 +62,7 @@ public interface PetRepo extends JpaRepository<PetLightDTO, Long> {
                                                @Nullable @Param("breed") Long breed,
                                                @Nullable @Param("name") String name,
                                                @Param("maxCount") Integer maxCount);
+
+    @Query ("SELECT p FROM PetDTO p WHERE p.pet_id=:id")
+    PetDTO findPetById(@Param("id") Long id);
 }

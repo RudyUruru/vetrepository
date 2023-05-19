@@ -3,6 +3,7 @@ package com.project.vetrepository.controller;
 import com.project.vetrepository.UserInfo;
 import com.project.vetrepository.dto.ClientDTO;
 import com.project.vetrepository.dto.ClientLightDTO;
+import com.project.vetrepository.dto.PetDTO;
 import com.project.vetrepository.dto.PetLightDTO;
 import com.project.vetrepository.repository.ClientRepo;
 import com.project.vetrepository.service.PetService;
@@ -33,4 +34,9 @@ public class PetController {
         return ResponseEntity.ok(petService.getPets(client.getClient_id(), kind_id, breed_id, name, max_count));
     }
 
+    @GetMapping("/pet")
+    public ResponseEntity<PetDTO> getPet(@RequestParam Long id) {
+        PetDTO pet = petService.getPetById(id);
+        return ResponseEntity.ok(pet);
+    }
 }
