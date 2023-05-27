@@ -1,7 +1,7 @@
 package com.project.vetrepository.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,21 +15,17 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class VisitDTO {
+public class VisitSimpleDTO {
     @Id
     @Column(name = "id")
     private Long visit_id;
 
 
-    @JsonIgnoreProperties({"owner", "visits", "appointments", "diagnoses"})
-    @ManyToOne
-    @JoinColumn (name = "pet_id")
-    private PetLightDTO pet;
+    @Column(name = "pet_id")
+    private Long petId;
 
-    @JsonIgnoreProperties({"pets", "appointments", "visits"})
-    @ManyToOne
-    @JoinColumn (name = "client_id")
-    private ClientDTO client;
+    @Column(name = "client_id")
+    private Long clientId;
 
     @Column (name = "rec_changed")
     private LocalDateTime date;
@@ -49,10 +45,6 @@ public class VisitDTO {
     @Column(name = "first_visit_id")
     private Long first_visit_id;
 
-    @JsonIgnoreProperties({"visit", "pet"})
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "visit")
-    private List<XPetsDiagsDTO> diagnoses;
-
     @Column(name = "weight")
     private String weight;
 
@@ -71,4 +63,5 @@ public class VisitDTO {
 
     @Column(name = "next_vaccination")
     private LocalDateTime nextVaccination;
+
 }
