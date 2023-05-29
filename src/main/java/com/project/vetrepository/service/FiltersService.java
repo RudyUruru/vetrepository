@@ -13,7 +13,6 @@ import java.util.Set;
 
 @Service
 public class FiltersService {
-    //TODO связать фильтры породы и вида, чтобы при выборе определенного вида передавались породы только для него
     @Autowired
     PetRepo petRepo;
 
