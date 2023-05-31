@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface AppointmentRepo extends JpaRepository<AppointmentDTO, Long> {
     @Query("SELECT a FROM AppointmentDTO a WHERE a.client.client_id=:clientId " +
@@ -19,5 +21,7 @@ public interface AppointmentRepo extends JpaRepository<AppointmentDTO, Long> {
                                                 @Nullable @Param("petId") Long petId,
                                                 @Param("now")LocalDateTime now,
                                                 @Param("maxCount") Integer maxCount);
+
+    Optional<AppointmentDTO> getByDate(LocalDateTime date);
 
 }
