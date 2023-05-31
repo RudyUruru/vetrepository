@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ManipulationRepo extends JpaRepository<ManipulationDTO, Long> {
-    @Query("SELECT m FROM ManipulationDTO WHERE (:name IS NULL OR m.name LIKE :name%")
+    @Query("SELECT m FROM ManipulationDTO m WHERE (:name IS NULL OR m.name LIKE :name%)")
     public List<ManipulationDTO> getManipulations(@Nullable @Param("name") String name);
 }
