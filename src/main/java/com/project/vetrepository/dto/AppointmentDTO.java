@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class AppointmentDTO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long appointment_id;
 
@@ -29,7 +30,7 @@ public class AppointmentDTO {
     @JsonIgnoreProperties({"appointments", "pets", "visits"})
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private ClientDTO client;
+    private ClientLightDTO client;
 
     @Column(name = "date")
     private LocalDateTime date;

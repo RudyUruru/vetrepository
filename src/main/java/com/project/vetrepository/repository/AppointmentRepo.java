@@ -23,5 +23,4 @@ public interface AppointmentRepo extends JpaRepository<AppointmentDTO, Long> {
                                                 @Param("maxCount") Integer maxCount);
 
     Optional<AppointmentDTO> getByDate(LocalDateTime date);
-
 }

@@ -14,6 +14,7 @@ import java.util.Map;
 public interface ClientRepo extends JpaRepository<ClientLightDTO, Long> {
     ClientLightDTO findByEmail(String email);
 
+
     @Query("SELECT c FROM ClientLightDTO c WHERE c.client_id=:id")
     ClientLightDTO findByClientId(@Param("id")Long id);
 }

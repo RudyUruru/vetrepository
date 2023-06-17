@@ -14,41 +14,6 @@ import java.util.List;
 @Repository
 public interface PetRepo extends JpaRepository<PetDTO, Long> {
 
-
-
-    /*@Query("SELECT p FROM PetLightDTO p WHERE p.owner.client_id=:ownerId" +
-            " AND (:kind IS NULL OR p.kind.id=:kind)" +
-            " AND (:breed IS NULL OR p.breed.id=:breed)" +
-            " AND (:name IS NULL OR p.name LIKE :name%)")
-    List<PetLightDTO> findPetsByBreed(@Param("ownerId") Long ownerId,
-                                      @Nullable @Param("kind") Long kind,
-                                      @Nullable @Param("breed") Long breed,
-                                      @Nullable @Param("name") String name);
-
-    @Query("SELECT p FROM PetLightDTO p WHERE p.owner.client_id=:ownerId" +
-            " AND (:kind IS NULL OR p.kind.id=:kind)" +
-            " AND (:breedId IS NULL OR p.breed.breed_id =: breedId) ")
-    List<PetLightDTO> findPets(@Param("ownerId") Long ownerId,
-                               @Nullable @Param("kind") Long kind,
-                               @Nullable @Param("breedId") Long breedId);
-
-    @Query("SELECT p FROM PetLightDTO p WHERE p.owner.client_id=:ownerId" +
-            " AND (:kind IS NULL OR p.kind.id=:kind)" +
-            " AND (:breed IS NULL OR p.breed.id=:breed)" +
-            " ORDER BY p.name LIMIT :maxCount")
-    List<PetLightDTO> findPetsLimitedWithBreed(@Param("ownerId") Long ownerId,
-                                      @Nullable @Param("kind") Long kind,
-                                      @Nullable @Param("breed") Long breed,
-                                      @Param("maxCount") Integer maxCount);
-
-    @Query("SELECT p FROM PetLightDTO p WHERE p.owner.client_id=:ownerId AND (:kind IS NULL OR p.kind.id=:kind) ORDER BY p.name LIMIT :maxCount")
-    List<PetLightDTO> findPetsLimited(@Param("ownerId") Long ownerId,
-                                               @Nullable @Param("kind") Long kind,
-                                               @Param("maxCount") Integer maxCount);*/
-
-    /*@Query("SELECT p from PetLightDTO p where p.owner.client_id=:ownerId AND p.name LIKE :name%")
-    List<PetLightDTO> findByName(@Param("ownerId") Long ownerId, @Param("name") String name);*/
-
     @Query("SELECT p from PetLightDTO p WHERE p.owner.client_id=:ownerId AND p.breed IS NOT NULL AND (:kindId IS NULL OR p.kind.id=:kindId)")
     List<PetLightDTO> findAllHaveBreed(@Param("ownerId") Long ownerId, @Nullable @Param("kindId") Long kindId);
 
@@ -65,4 +30,7 @@ public interface PetRepo extends JpaRepository<PetDTO, Long> {
 
     @Query ("SELECT p FROM PetDTO p WHERE p.pet_id=:id")
     PetDTO findPetById(@Param("id") Long id);
+
+    @Query ("SELECT p FROM PetLightDTO p WHERE p.pet_id=:id")
+    PetLightDTO findSimpleById(@Param("id") Long id);
 }

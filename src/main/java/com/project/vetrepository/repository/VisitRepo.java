@@ -14,52 +14,19 @@ import java.util.List;
 public interface VisitRepo extends PagingAndSortingRepository<VisitDTO, Long> {
 
     @Query("SELECT v FROM VisitDTO v WHERE v.client.client_id=:clientId" +
-            " AND (:kind IS NULL OR v.pet.kind.id=:kind)" +
-            " AND (:breed IS NULL OR v.pet.breed.id=:breed)" +
-            " AND (:date1 IS NULL OR v.date>=:date1)" +
-            " AND (:date2 IS NULL OR v.date<=:date2)" +
-            " ORDER BY v.date desc")
-    List<VisitDTO> findVisitsWithBreed(@Param("clientId") Long clientId,
-                              @Nullable @Param("kind") Long kind,
-                              @Nullable @Param("breed") Long breed,
-                              @Nullable @Param("date1") LocalDateTime date1,
-                              @Nullable @Param("date2") LocalDateTime date2);
-    @Query("SELECT v FROM VisitDTO v WHERE v.client.client_id=:clientId" +
-            " AND (:kind IS NULL OR v.pet.kind.id=:kind)" +
-            " AND (:date1 IS NULL OR v.date>=:date1)" +
-            " AND (:date2 IS NULL OR v.date<=:date2)" +
-            " ORDER BY v.date desc")
-    List<VisitDTO> findVisitsByClientId(@Param("clientId") Long clientId,
-                                        @Nullable @Param("kind") Long kind,
-                                        @Nullable @Param("date1") LocalDateTime date1,
-                                        @Nullable @Param("date2") LocalDateTime date2);
-
-
-    @Query("SELECT v FROM VisitDTO v WHERE v.client.client_id=:clientId" +
             " AND (:petId IS NULL OR v.pet.pet_id=:petId)" +
             " AND (:kind IS NULL OR v.pet.kind.id=:kind)" +
             " AND (:breed IS NULL OR v.pet.breed.id=:breed)" +
             " AND (:date1 IS NULL OR v.date>=:date1)" +
             " AND (:date2 IS NULL OR v.date<=:date2)" +
             " ORDER BY v.date desc LIMIT :maxCount")
-    List<VisitDTO> findVisitsLimitedWithBreed(@Param("clientId") Long clientId,
-                                              @Nullable @Param("petId") Long petId,
-                                              @Nullable @Param("kind") Long kind,
-                                              @Nullable @Param("breed") Long breed,
-                                              @Nullable @Param("date1") LocalDateTime date1,
-                                              @Nullable @Param("date2") LocalDateTime date2,
-                                              @Param("maxCount") Integer maxCount);
-
-    @Query("SELECT v FROM VisitDTO v WHERE v.client.client_id=:clientId" +
-            " AND (:kind IS NULL OR v.pet.kind.id=:kind)" +
-            " AND (:date1 IS NULL OR v.date>=:date1)" +
-            " AND (:date2 IS NULL OR v.date<=:date2)" +
-            " ORDER BY v.date desc LIMIT :maxCount")
-    List<VisitDTO> findVisitsLimited(@Param("clientId") Long clientId,
-                                              @Nullable @Param("kind") Long kind,
-                                              @Nullable @Param("date1") LocalDateTime date1,
-                                              @Nullable @Param("date2") LocalDateTime date2,
-                                              @Param("maxCount") Integer maxCount);
+    List<VisitDTO> findVisitsFiltered(@Param("clientId") Long clientId,
+                                      @Nullable @Param("petId") Long petId,
+                                      @Nullable @Param("kind") Long kind,
+                                      @Nullable @Param("breed") Long breed,
+                                      @Nullable @Param("date1") LocalDateTime date1,
+                                      @Nullable @Param("date2") LocalDateTime date2,
+                                      @Param("maxCount") Integer maxCount);
 
     @Query("SELECT v FROM VisitDTO v WHERE v.visit_id=:visit_id")
     VisitDTO findVisitByVisitId(@Param("visit_id") Long visit_id);

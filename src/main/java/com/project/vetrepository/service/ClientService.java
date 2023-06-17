@@ -29,14 +29,8 @@ public class ClientService {
         if (maxCount == null)
             maxCount = Integer.MAX_VALUE;
 
-        /*if (maxCount == null && breed_id == null)
-            list = visitRepo.findVisitsByClientId(id, kind_id, date1, date2);
-        else if (maxCount == null)
-            list = visitRepo.findVisitsWithBreed(id, kind_id, breed_id, date1, date2);
-        else if (breed_id == null)
-            list = visitRepo.findVisitsLimited(id, kind_id, date1, date2, maxCount);
-        else */
-        list = visitRepo.findVisitsLimitedWithBreed(id, petId, kind_id, breed_id, date1, date2, maxCount);
+
+        list = visitRepo.findVisitsFiltered(id, petId, kind_id, breed_id, date1, date2, maxCount);
         return list;
     }
 }

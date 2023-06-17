@@ -1,7 +1,9 @@
 package com.project.vetrepository.controller;
 
+import com.project.vetrepository.dto.AppointmentType;
 import com.project.vetrepository.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +21,15 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getFreeTime(doctorId, date));
     }
 
-    @PostMapping("make_appointment")
-    public ResponseEntity makeAppointment(@RequestParam("pet_id") Long petId,
-                                          @RequestParam("client_name") String clientName,
-                                          @RequestParam String email,
+    @PostMapping("/make_appointment")
+    public ResponseEntity makeAppointment(@RequestParam String email,
+                                          @RequestParam("pet_id") Long petId,
                                           @RequestParam LocalDateTime date,
                                           @RequestParam("surgeon_id") Long surgeonId,
-                                          @RequestParam("doctor_id") Long doctorId) {
-        return ResponseEntity.ok().build();
+                                          @RequestParam AppointmentType type) {
+        if (appointmentService.makeAppointment(email, petId, date, surgeonId, type))
+            return ResponseEntity.ok().build();
+        else
+            return ResponseEntity.badRequest().body("Это время занято");
     }
 }
